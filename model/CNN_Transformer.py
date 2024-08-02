@@ -27,7 +27,7 @@ class CNN_Transformer(nn.Module):
         x = self.cnn.forward_to_transformer(x)
 
         x = self.transformer_encoder(x)
-        print("After Transformer Encoder:", x.shape)
+        # print("After Transformer Encoder:", x.shape)
         return x
 
 if __name__ == "__main__":
@@ -35,8 +35,8 @@ if __name__ == "__main__":
     model = CNN_Transformer()
     x = torch.randn(3, 3, 768, 1024)  # (batch_size, seq_len, d_model)
     y = model(x)
-    print(y.shape)
-    print(y)
+    # print(y.shape)
+    # print(y)
 
 # Before CNN: torch.Size([3, 3, 768, 1024])
 # After CNN: torch.Size([3, 97, 3, 4])

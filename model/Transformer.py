@@ -34,19 +34,19 @@ class Transformer(nn.Module):
     def forward(self, x):
         # x: [batch_size, seq_len, d_model] -> [seq_len, batch_size, d_model]
         x = x.permute(1, 0, 2)
-        print("Before Transformer Encoder:", x.shape)
+        # print("Before Transformer Encoder:", x.shape)
         x = self.transformer_encoder(x)
-        print("After Transformer Encoder:", x.shape)
+        # print("After Transformer Encoder:", x.shape)
         # Use the output of the [0] index (representing the first token) for classification
         x = x.mean(dim=0)  # Aggregate the output over sequence length
         x = self.nb(x)
         x = self.dropout(x)
-        print("After mean:", x.shape)
+        # print("After mean:", x.shape)
         x = self.fc(x)
-        print("After fc:", x.shape)
+        # print("After fc:", x.shape)
         x = F.softmax(x, dim=-1)  # Softmax over the last dimension (or also x[1])
-        print("After softmax:", x.shape)
-        print("Done Transformer")
+        # print("After softmax:", x.shape)
+        # print("Done Transformer")
         return x
 
 
@@ -55,8 +55,8 @@ if __name__ == "__main__":
     model = Transformer()
     x = torch.randn(3, 12, 3)  # (batch_size, seq_len, d_model)
     y = model(x)
-    print(y.shape)
-    print(y)
+    # print(y.shape)
+    # print(y)
 
 
 # from torchinfo import (

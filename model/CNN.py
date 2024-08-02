@@ -57,45 +57,45 @@ class CNN(nn.Module):
         self.fc2 = nn.Linear(in_features=97, out_features=num_classes)
 
     def forward(self, x):
-        print("Before CNN:", x.shape)
+        # print("Before CNN:", x.shape)
         x = self.cnn(x)
-        print("After CNN:", x.shape)
+        # print("After CNN:", x.shape)
         # print(x)
         x = x.view(x.shape[0], x.shape[1], -1)  # (-1, 97, 12)
-        print("After view:", x.shape)
+        # print("After view:", x.shape)
         x = x.permute(0, 2, 1)
-        print("After permute:", x.shape)
+        # print("After permute:", x.shape)
         x = self.fc1(x)
-        print("After fc1:", x.shape)
+        # print("After fc1:", x.shape)
         x = self.fc2(x)
-        print("After fc2:", x.shape)
+        # print("After fc2:", x.shape)
         x = F.softmax(x, dim=2)
-        print("After softmax 1:", x.shape)
-        # print(x)
+        # print("After softmax 1:", x.shape)
+        # # print(x)
         x = torch.sum(
             x, dim=1, keepdim=False
         )  # Kết quả có kích thước [-1, 3], keepdim=True if want [-1, 1, 3]    # sum or mean all be same (as use the softmax function)
-        # print(x)
+        # # print(x)
         x = F.softmax(x, dim=1)  # Kết quả có kích thước [-1, 3]
-        print("After mean 12 patch and softmax 2:", x.shape)
+        # print("After mean 12 patch and softmax 2:", x.shape)
         return x
 
     def forward_to_transformer(self, x):
-        print("Before CNN:", x.shape)
+        # print("Before CNN:", x.shape)
         x = self.cnn(x)
-        print("After CNN:", x.shape)
-        # print(x)
+        # print("After CNN:", x.shape)
+        # # print(x)
         x = x.view(x.shape[0], x.shape[1], -1)  # (-1, 97, 12)
-        print("After view:", x.shape)
+        # print("After view:", x.shape)
         x = x.permute(0, 2, 1)
-        print("After permute:", x.shape)
+        # print("After permute:", x.shape)
         x = self.fc1(x)
-        print("After cnn.fc1:", x.shape)
+        # print("After cnn.fc1:", x.shape)
         x = self.fc2(x)
-        print("After cnn.fc2:", x.shape)
+        # print("After cnn.fc2:", x.shape)
         x = F.softmax(x, dim=2)
-        print("After softmax of cnn:", x.shape)
-        print('Done CNN')
+        # print("After softmax of cnn:", x.shape)
+        # print('Done CNN')
         return x
 
 if __name__ == "__main__":
@@ -103,8 +103,8 @@ if __name__ == "__main__":
     model = CNN()
     x = torch.randn(3, 3, 768, 1024)
     y = model(x)
-    print(y.shape)
-    print(y)
+    # print(y.shape)
+    # print(y)
 
     from torchsummary import summary
     summary(model, (3, 768, 1024))
