@@ -5,14 +5,13 @@ import torch.nn.functional as F
 from model.CNN import CNN
 from model.Transformer import Transformer
 
+
 # Định nghĩa mô hình
 class CNN_Transformer(nn.Module):
     def __init__(self, d_model=3, nhead=3, num_encoder_layers=3, num_classes=3):
         super(CNN_Transformer, self).__init__()
         # (input_shape=(3, 768, 1024)),
         self.cnn = CNN(num_classes=num_classes)
-
-        self.fc1 = nn.Linear(in_features=97, out_features=3)
 
         self.transformer_encoder = Transformer(
             num_classes=num_classes,
@@ -21,14 +20,13 @@ class CNN_Transformer(nn.Module):
             num_encoder_layers=num_encoder_layers,
         )
 
-        self.dropout = nn.Dropout(0.1)
-
     def forward(self, x):
         x = self.cnn.forward_to_transformer(x)
 
         x = self.transformer_encoder(x)
         # print("After Transformer Encoder:", x.shape)
         return x
+
 
 if __name__ == "__main__":
     # Define the model

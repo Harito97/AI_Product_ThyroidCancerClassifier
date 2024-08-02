@@ -39,7 +39,7 @@ class Transformer(nn.Module):
         # print("After Transformer Encoder:", x.shape)
         # Use the output of the [0] index (representing the first token) for classification
         x = x.mean(dim=0)  # Aggregate the output over sequence length
-        x = self.nb(x)
+        # x = self.nb(x)
         x = self.dropout(x)
         # print("After mean:", x.shape)
         x = self.fc(x)
