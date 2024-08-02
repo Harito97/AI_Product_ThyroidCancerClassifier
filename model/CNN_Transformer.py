@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from CNN import CNN
-from Transformer import Transformer
+from model.CNN import CNN
+from model.Transformer import Transformer
 
 # Định nghĩa mô hình
 class CNN_Transformer(nn.Module):
